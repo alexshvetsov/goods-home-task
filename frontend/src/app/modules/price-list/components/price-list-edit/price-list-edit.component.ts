@@ -23,11 +23,11 @@ export class PriceListEditComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  submitForm() {
+  submitForm() :void{
     this.completedForm.emit(this.editForm!);
   }
 
-  onCancelEdit() {
+  onCancelEdit():void {
     this.cancelEdit.emit();
   }
 }

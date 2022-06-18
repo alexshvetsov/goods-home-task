@@ -72,7 +72,7 @@ export class PriceListListComponent implements OnInit {
     );
   }
 
-  onFormSubmitted(form: NgForm) {
+  onFormSubmitted(form: NgForm) :void{
     const newPriceList = new PriceListModel({
       priceListID: this.priceListToEdit!.priceListID,
       priceListName: form.form.value.priceListName,
@@ -82,12 +82,12 @@ export class PriceListListComponent implements OnInit {
     this.priceListService.updatePriceList(newPriceList);
   }
 
-  onListItemClicked(priceListID: number) {
+  onListItemClicked(priceListID: number) :void{
     this.priceListToEdit =
       this.priceListService.getPriceListToEdit(priceListID);
   }
 
-  onCancelEdit() {
+  onCancelEdit() :void{
     this.priceListToEdit = undefined;
   }
 }

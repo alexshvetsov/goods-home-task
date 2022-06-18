@@ -14,7 +14,7 @@ export class ListItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onListItemClicked() {
+  onListItemClicked():void {
     if (this.clickable) {
       this.listItemCLicked.emit(this.value);
     }
