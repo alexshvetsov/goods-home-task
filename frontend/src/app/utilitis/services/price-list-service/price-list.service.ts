@@ -1,17 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  Observable,
-  of,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { ErrorHandlerInterceptor } from '../../interceptors/error-handler.interceptor';
 import { PriceListModel } from '../../models/priceListModel';
 
 export interface PriceListsByKey {
@@ -35,7 +25,16 @@ export class PriceListService {
       priceListID: [],
     });
 
-  constructor(private httpClient: HttpClient) {}
+  errorMsg$!: Observable<string>;
+
+  constructor(
+    private httpClient: HttpClient,
+    private errorHandlerInterceptor: ErrorHandlerInterceptor
+  ) {
+    this.errorMsg$ = this.errorHandlerInterceptor
+      .getErrorContent()
+      .pipe(tap((value) => console.log(value)));
+  }
 
   getPriceListsAsObs(
     eRPCompanyIds: number[],
@@ -57,6 +56,7 @@ export class PriceListService {
             priceLists.priceLists
           );
           this.priceListsByKey$.next(priceListsByKey);
+          this.errorHandlerInterceptor.setErrorContent('');
 
           return priceListsByKey;
         })
@@ -79,12 +79,18 @@ export class PriceListService {
 
         this.priceLists.splice(index, 1, newPriceList.priceList);
         const priceListsByKey = this.orderPriceListBykey(this.priceLists);
+        this.errorHandlerInterceptor.setErrorContent('');
+
         this.priceListsByKey$.next(priceListsByKey);
       });
   }
 
   getPriceLists(): PriceListModel[] {
     return [...this.priceLists];
+  }
+
+  getErrorMsg(): Observable<string> {
+    return this.errorMsg$;
   }
 
   getPriceListToEdit(id: number): PriceListModel {
@@ -105,5 +111,4 @@ export class PriceListService {
     }, priceListsByKey);
     return priceListsByKey;
   }
-
 }

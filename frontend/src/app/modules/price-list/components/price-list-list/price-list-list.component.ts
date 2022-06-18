@@ -7,7 +7,9 @@ import {
   merge,
   Observable,
   switchMap,
+  tap,
 } from 'rxjs';
+import { ErrorHandlerInterceptor } from 'src/app/utilitis/interceptors/error-handler.interceptor';
 import { PriceListModel } from 'src/app/utilitis/models/priceListModel';
 import { ErpLogisticSiteService } from 'src/app/utilitis/services/erp-logistic-site-service/erp-logistic-site.service';
 import {
@@ -26,6 +28,7 @@ export class PriceListListComponent implements OnInit {
   eRPCompanyIds!: number[];
   priceLists$!: Observable<PriceListsByKey>;
   eRPCompanyIds$!: Observable<number[]>;
+  errorMsg$!: Observable<string>;
 
   priceListHeadlines: { [key: string]: string } = {
     priceListID: 'Price List ID',
@@ -41,6 +44,7 @@ export class PriceListListComponent implements OnInit {
   ngOnInit(): void {
     this.eRPCompanyIds = this.ERPLogisticSiteServie.getErps();
     this.priceLists$ = this.initPriceLists();
+    this.errorMsg$ = this.priceListService.getErrorMsg();
   }
 
   initPriceLists(): Observable<PriceListsByKey> {
@@ -72,7 +76,7 @@ export class PriceListListComponent implements OnInit {
     );
   }
 
-  onFormSubmitted(form: NgForm) :void{
+  onFormSubmitted(form: NgForm): void {
     const newPriceList = new PriceListModel({
       priceListID: this.priceListToEdit!.priceListID,
       priceListName: form.form.value.priceListName,
@@ -82,12 +86,12 @@ export class PriceListListComponent implements OnInit {
     this.priceListService.updatePriceList(newPriceList);
   }
 
-  onListItemClicked(priceListID: number) :void{
+  onListItemClicked(priceListID: number): void {
     this.priceListToEdit =
       this.priceListService.getPriceListToEdit(priceListID);
   }
 
-  onCancelEdit() :void{
+  onCancelEdit(): void {
     this.priceListToEdit = undefined;
   }
 }
