@@ -7,12 +7,13 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { PriceListService } from '../services/price-list-service/price-list.service';
 
 @Injectable({ providedIn: 'root' })
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  errorContent$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor() {}
+
+  constructor(private priceListService:PriceListService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -24,7 +25,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         (event: HttpEvent<any>) => event,
         (error: any) => {
           if (error instanceof HttpErrorResponse) {
-            this.setErrorContent(error.error.error);
+            this.priceListService.seterrorMsg(error.error.error);
             return error;
           }
           return error;
@@ -33,10 +34,4 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     );
   }
 
-  getErrorContent(): Observable<string> {
-    return this.errorContent$.asObservable();
-  }
-  setErrorContent(value: string) {
-    this.errorContent$.next(value.toString());
-  }
 }

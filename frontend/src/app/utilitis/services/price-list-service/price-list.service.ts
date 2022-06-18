@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
-import { ErrorHandlerInterceptor } from '../../interceptors/error-handler.interceptor';
 import { PriceListModel } from '../../models/priceListModel';
 
 export interface PriceListsByKey {
@@ -25,16 +24,11 @@ export class PriceListService {
       priceListID: [],
     });
 
-  errorMsg$!: Observable<string>;
+  errorMsg$: BehaviorSubject<string>=new BehaviorSubject<string>('')
 
   constructor(
     private httpClient: HttpClient,
-    private errorHandlerInterceptor: ErrorHandlerInterceptor
-  ) {
-    this.errorMsg$ = this.errorHandlerInterceptor
-      .getErrorContent()
-      .pipe(tap((value) => console.log(value)));
-  }
+  ) {}
 
   getPriceListsAsObs(
     eRPCompanyIds: number[],
@@ -56,7 +50,7 @@ export class PriceListService {
             priceLists.priceLists
           );
           this.priceListsByKey$.next(priceListsByKey);
-          this.errorHandlerInterceptor.setErrorContent('');
+          this.seterrorMsg('');
 
           return priceListsByKey;
         })
@@ -79,7 +73,7 @@ export class PriceListService {
 
         this.priceLists.splice(index, 1, newPriceList.priceList);
         const priceListsByKey = this.orderPriceListBykey(this.priceLists);
-        this.errorHandlerInterceptor.setErrorContent('');
+        this.seterrorMsg('');
 
         this.priceListsByKey$.next(priceListsByKey);
       });
@@ -110,5 +104,12 @@ export class PriceListService {
       return pre;
     }, priceListsByKey);
     return priceListsByKey;
+  }
+  
+  geterrorMsg(): Observable<string> {
+    return this.errorMsg$.asObservable();
+  }
+  seterrorMsg(value: string) {
+    this.errorMsg$.next(value.toString());
   }
 }

@@ -5,3 +5,7 @@ install:
 
 run project:
 npm run dev
+
+to see error go to mock_data.js line 33
+
+to see a side event rerender getPriceLst go frontend/src/app/utilitis/services/erp-logistic-site-service/erp-logistic-site-service.js

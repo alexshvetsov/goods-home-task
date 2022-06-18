@@ -1,9 +1,16 @@
+
 <div
-  fxLayout="column"
-  fxLayoutAlign="space-around"
-  fxLayoutGap="50px"
-  class="price-list-list"
+fxLayout="column"
+fxLayoutAlign="space-around "
+fxLayoutGap="50px"
+class="price-list-list"
 >
+<div
+fxLayoutAlign="center "
+>
+  <div *ngIf="errorMsg$ |async as errorMsg">{{errorMsg}}</div>
+</div>
+
   <div fxLayout="row" fxLayoutAlign="center">
     <div
       fxLayout="column"

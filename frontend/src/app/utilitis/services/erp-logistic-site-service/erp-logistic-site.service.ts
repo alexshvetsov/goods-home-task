@@ -11,7 +11,8 @@ export class ErpLogisticSiteService {
   ]);
 
   constructor() {
-    setTimeout(() => this.setERPCompanyIds([1]), 2000);
+    // uncomment to see the price list refresh on new erpcompanyId from side event
+    // setTimeout(() => this.setERPCompanyIds([1]), 2000);
   }
 
   getErps(): number[] {

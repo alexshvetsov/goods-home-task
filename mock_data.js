@@ -1,89 +1,36 @@
 const pricesList = [
   {
     priceListID: 1,
-    priceListName: "apples",
-    extErpPriceListID: 5,
+    priceListName: "fruitapples",
+    extErpPriceListID: 533,
   },
   {
     priceListID: 2,
-    priceListName: "onion",
+    priceListName: "vegionion",
     extErpPriceListID: 20,
   },
   {
     priceListID: 3,
-    priceListName: "tomato",
-    extErpPriceListID: 8,
+    priceListName: " vegitomato",
+    extErpPriceListID: 8123,
   },
   {
     priceListID: 4,
-    priceListName: "watermelon",
+    priceListName: "fruitwatermelon",
   },
   {
     priceListID: 5,
-    priceListName: "oranges",
-    extErpPriceListID: 5,
+    priceListName: "fruitoranges",
+    extErpPriceListID: 5123,
   },
   {
     priceListID: 6,
-    priceListName: "bananas",
-  },{
-    priceListID: 1,
-    priceListName: "apples",
-    extErpPriceListID: 5,
-  },
-  {
-    priceListID: 2,
-    priceListName: "onion",
-    extErpPriceListID: 20,
-  },
-  {
-    priceListID: 3,
-    priceListName: "tomato",
-    extErpPriceListID: 8,
-  },
-  {
-    priceListID: 4,
-    priceListName: "watermelon",
-  },
-  {
-    priceListID: 5,
-    priceListName: "oranges",
-    extErpPriceListID: 5,
-  },
-  {
-    priceListID: 6,
-    priceListName: "bananas",
-  },{
-    priceListID: 1,
-    priceListName: "apples",
-    extErpPriceListID: 5,
-  },
-  {
-    priceListID: 2,
-    priceListName: "onion",
-    extErpPriceListID: 20,
-  },
-  {
-    priceListID: 3,
-    priceListName: "tomato",
-    extErpPriceListID: 8,
-  },
-  {
-    priceListID: 4,
-    priceListName: "watermelon",
-  },
-  {
-    priceListID: 5,
-    priceListName: "oranges",
-    extErpPriceListID: 5,
-  },
-  {
-    priceListID: 6,
-    priceListName: "bananas",
-  },
+    priceListName: "fruitbananas",
+  }
 ];
 
 async function getPriceList(ERPCompanyids, searchTerm) {
+  // throw new Error('asda')
   if (!ERPCompanyids) return pricesList;
 
   if (searchTerm === "")

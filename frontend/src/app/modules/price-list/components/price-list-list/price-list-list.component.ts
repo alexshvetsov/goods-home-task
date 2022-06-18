@@ -47,6 +47,7 @@ export class PriceListListComponent implements OnInit {
     this.errorMsg$ = this.priceListService.getErrorMsg();
   }
 
+
   initPriceLists(): Observable<PriceListsByKey> {
     return merge(
       this.onSearchChanged(),
