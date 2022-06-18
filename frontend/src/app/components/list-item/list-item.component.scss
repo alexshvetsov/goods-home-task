@@ -1,0 +1,17 @@
+:host {
+  text-align: center;
+}
+.list-item {
+  background-color: #f7f7f7;
+  padding: 10px 20px;
+  min-width: 4rem;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #448ecd;
+  }
+}

@@ -1,0 +1,27 @@
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+input {
+  height: 45px;
+  font-size: 1rem;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 15px;
+  border: 0;
+  cursor: pointer;
+  &[type="submit"] {
+    background-color: #59e28c;
+  }
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}

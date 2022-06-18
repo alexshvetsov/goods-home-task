@@ -1,0 +1,74 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="space-around"
+  fxLayoutGap="50px"
+  class="price-list-list"
+>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center"
+      fxFlex="80"
+      fxLayoutGap="35px"
+    >
+      <section *ngIf="priceListToEdit" fxLayoutAlign="center start">
+        <app-price-list-edit
+          fxFlex="40"
+          fxFlex.xs="100"
+          (completedForm)="onFormSubmitted($event)"
+          (cancelEdit)="onCancelEdit()"
+          [priceList]="priceListToEdit"
+        ></app-price-list-edit>
+      </section>
+      <div fxLayout="column" fxLayoutGap="30px">
+        <div fxLayoutAlign="center" fxFlex="50%">
+          <input
+            class="search-input"
+            fxFlex="40%"
+            fxFlex.xs="100%"
+            placeholder="search for price list by name"
+            type="text"
+            [formControl]="search"
+          />
+        </div>
+        <section
+          *ngIf="priceLists$ | async as priceLists"
+          class="price-list-columns"
+          fxLayout="row"
+          fxLayoutAlign="center"
+          fxLayoutAlign="space-between"
+          fxLayoutGap="30px"
+          fxLayoutGap.lt-md="30px"
+          fxLayout.xs="column"
+          fxLayoutAlign.xs="center"
+          fxLayoutGap.xs="30px"
+        >
+          <ng-container *ngFor="let priceList of priceLists | keyvalue">
+            <div
+              fxLayout="column"
+              fxLayoutAlign.xs="center center"
+              fxLayoutGap="2rem"
+            >
+              <span class="price-list-key">{{
+                priceListHeadlines[priceList.key]
+              }}</span>
+              <div fxLayout="column" fxLayoutGap="2rem" fxLayoutAlign="center">
+                <ng-container *ngFor="let item of priceList.value">
+                  <div fxLayout="column">
+                    <app-list-item
+                      [value]="item"
+                      [clickable]="
+                        priceListHeadlines[priceList.key] === 'Price List ID'
+                      "
+                      (listItemCLicked)="onListItemClicked(item)"
+                    ></app-list-item>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

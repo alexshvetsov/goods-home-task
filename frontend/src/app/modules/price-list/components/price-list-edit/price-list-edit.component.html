@@ -1,0 +1,70 @@
+<div
+  class="price-list-edit"
+  fxLayout="column"
+  fxLayoutAlign="center"
+  fxFlex="100"
+  fxLayoutGap="20px"
+>
+  <div class="id-container">
+    You are edditing Price List ID : {{ priceList.priceListID }}
+  </div>
+
+  <form
+    #editForm="ngForm"
+    fxLayout="column"
+    fxFlex="100"
+    fxLayoutGap="15px"
+    (ngSubmit)="submitForm()"
+  >
+    <div class="form-control" fxLayout="column" fxFlex="100">
+      <input
+        fxFlex="100"
+        type="text"
+        #priceListName="ngModel"
+        [ngModel]="priceList.priceListName"
+        name="priceListName"
+        pattern="^([a-zA-Z]!*){10,}$"
+        required
+      />
+      <span
+        class="error"
+        *ngIf="priceListName && !priceListName.valid && priceListName.errors"
+      >
+        {{
+          priceListName.errors["pattern"].requiredPattern
+            ? "the price list name should contain at least 10 a-z characters"
+            : ""
+        }}
+      </span>
+    </div>
+
+    <div class="form-control" fxLayout="column">
+      <input
+        type="number"
+        #extErpPriceListID="ngModel"
+        [ngModel]="priceList.extErpPriceListID"
+        name="extErpPriceListID"
+        appRestrictedExtErpId
+      />
+      <span
+        class="error"
+        *ngIf="
+          extErpPriceListID &&
+          !extErpPriceListID.valid &&
+          extErpPriceListID.errors
+        "
+      >
+        {{
+          extErpPriceListID.errors["restricted"]
+            ? extErpPriceListID.errors["restricted"]
+            : ""
+        }}
+      </span>
+    </div>
+
+    <div fxLayoutGap="15px">
+      <button class="cancel" (click)="onCancelEdit()">cancel</button>
+      <button type="submit" [disabled]="!editForm.valid">submit</button>
+    </div>
+  </form>
+</div>

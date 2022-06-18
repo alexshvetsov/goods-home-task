@@ -1,0 +1,24 @@
+{
+  "name": "goods",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix frontend",
+    "server": "nodemon server",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.2.2",
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "@angular/flex-layout": "^13.0.0-beta.38",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  }
+}
