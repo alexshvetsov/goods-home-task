@@ -16,6 +16,7 @@ import { PriceListService } from 'src/app/utilitis/services/price-list-service/p
 export class RestrictedExtErpIdDirective implements Validator {
   priceLists!: PriceListModel[];
   constructor(private priceListService: PriceListService) {
+//    here i would add a http post req with the value in he body and check it with the data base pricelistIDS
     this.priceLists = this.priceListService.getPriceLists();
   }
 
