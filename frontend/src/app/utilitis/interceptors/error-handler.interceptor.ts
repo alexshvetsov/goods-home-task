@@ -23,12 +23,7 @@ intercept(
       catchError((error: HttpErrorResponse) => {
         if (error instanceof HttpErrorResponse) {
           this.priceListService.setErrorMsg(error.error.error);
-          // return error;
         }
-        // return error;
-
-        console.log(error.error)
-
         return throwError(() => error);
       })
     )
