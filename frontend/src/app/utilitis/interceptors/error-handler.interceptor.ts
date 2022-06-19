@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { PriceListService } from '../services/price-list-service/price-list.service';
 
 @Injectable({ providedIn: 'root' })
