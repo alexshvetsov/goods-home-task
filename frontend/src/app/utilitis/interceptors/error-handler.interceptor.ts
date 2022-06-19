@@ -15,22 +15,23 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   constructor(private priceListService:PriceListService) {}
 
-  intercept(
+intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      tap(
-        (event: HttpEvent<any>) => event,
-        (error: any) => {
-          if (error instanceof HttpErrorResponse) {
-            this.priceListService.setErrorMsg(error.error.error);
-            return error;
-          }
-          return error;
+      catchError((error: HttpErrorResponse) => {
+        if (error instanceof HttpErrorResponse) {
+          this.priceListService.setErrorMsg(error.error.error);
+          // return error;
         }
-      )
-    );
+        // return error;
+
+        console.log(error.error)
+
+        return throwError(() => error);
+      })
+    )
   }
 
 }
