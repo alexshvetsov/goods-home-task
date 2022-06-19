@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ErpLogisticSiteService {
   eRPCompanyIds: number[] = [1, 2, 3, 4, 5, 6];
   eRPCompanyIds$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([
-    1, 2, 3, 5, 6,
+    1, 2, 3,4, 5, 6,
   ]);
 
   constructor() {

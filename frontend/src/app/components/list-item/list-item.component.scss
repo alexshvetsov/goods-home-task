@@ -11,7 +11,8 @@
 .clickable {
   cursor: pointer;
 
+  background-color: #448ecd;
   &:hover {
-    background-color: #448ecd;
+    background-color: #abccea;
   }
 }

@@ -17,6 +17,8 @@ import {
   PriceListService,
 } from 'src/app/utilitis/services/price-list-service/price-list.service';
 
+const EMPTY_QUERY_STRING = '';
+
 @Component({
   selector: 'app-price-list-list',
   templateUrl: './price-list-list.component.html',
@@ -29,7 +31,7 @@ export class PriceListListComponent implements OnInit {
   priceLists$!: Observable<PriceListsByKey>;
   eRPCompanyIds$!: Observable<number[]>;
   errorMsg$!: Observable<string>;
-
+  
   priceListHeadlines: { [key: string]: string } = {
     priceListID: 'Price List ID',
     extErpPriceListID: 'Ext Erp Price List ID',
@@ -38,28 +40,27 @@ export class PriceListListComponent implements OnInit {
 
   constructor(
     private priceListService: PriceListService,
-    private ERPLogisticSiteServie: ErpLogisticSiteService
+    private ERPLogisticSiteService: ErpLogisticSiteService
   ) {}
 
   ngOnInit(): void {
-    this.eRPCompanyIds = this.ERPLogisticSiteServie.getErps();
+    this.eRPCompanyIds = this.ERPLogisticSiteService.getErps();
     this.priceLists$ = this.initPriceLists();
     this.errorMsg$ = this.priceListService.getErrorMsg();
   }
 
-
   initPriceLists(): Observable<PriceListsByKey> {
     return merge(
       this.onSearchChanged(),
-      this.priceListService.getPriceListsAsObs(this.eRPCompanyIds, ''),
+      this.priceListService.getPriceListsAsObs(this.eRPCompanyIds, EMPTY_QUERY_STRING),
       this.priceListService.priceListsByKey$,
       this.getERPCompanyIdsObs()
     );
   }
 
   getERPCompanyIdsObs(): Observable<PriceListsByKey> {
-    return this.ERPLogisticSiteServie.getERPCompanyIdsAsObs().pipe(
-      switchMap((value) => this.priceListService.getPriceListsAsObs(value, ''))
+    return this.ERPLogisticSiteService.getERPCompanyIdsAsObs().pipe(
+      switchMap((value) => this.priceListService.getPriceListsAsObs(value, EMPTY_QUERY_STRING))
     );
   }
 

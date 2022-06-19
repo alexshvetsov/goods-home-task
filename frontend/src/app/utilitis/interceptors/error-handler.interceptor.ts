@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { PriceListService } from '../services/price-list-service/price-list.service';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         (event: HttpEvent<any>) => event,
         (error: any) => {
           if (error instanceof HttpErrorResponse) {
-            this.priceListService.seterrorMsg(error.error.error);
+            this.priceListService.setErrorMsg(error.error.error);
             return error;
           }
           return error;

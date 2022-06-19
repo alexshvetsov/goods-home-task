@@ -8,7 +8,7 @@ exports.getPriceListsAsObs = async (req, res, next) => {
     const priceLists = await getPriceList(eRPCompanyIds, searchTerm);
     return res.status(200).json({ success: true, priceLists: priceLists });
   } catch (error) {
-    //uncommont the throw error in the mock data line 87 to the effect in the ui, 
+    //uncomment the throw error in the mock data line 87 to the effect in the ui, 
     return res.status(500).json({ success: false, error: "Server Error - Price Lists are temporarily unavailable" });
   }
 };

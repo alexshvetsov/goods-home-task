@@ -11,7 +11,7 @@ const pricesList = [
   },
   {
     priceListID: 3,
-    priceListName: " vegitomato",
+    priceListName: "vegitomato",
     extErpPriceListID: 8123,
   },
   {

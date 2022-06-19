@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { PriceListModel } from '../../models/priceListModel';
+import {environment} from '../../../../environments/environment'
 
 export interface PriceListsByKey {
   priceListID: number[];
@@ -15,7 +16,7 @@ export interface PriceListsByKey {
 export class PriceListService {
   priceLists!: PriceListModel[];
 
-  baseUrl: string = 'http://localhost:5000/price-list';
+  baseUrl: string = `${environment.baseUrl}/price-list`;
 
   priceListsByKey$: BehaviorSubject<PriceListsByKey> =
     new BehaviorSubject<PriceListsByKey>({
@@ -50,7 +51,7 @@ export class PriceListService {
             priceLists.priceLists
           );
           this.priceListsByKey$.next(priceListsByKey);
-          this.seterrorMsg('');
+          this.setErrorMsg('');
 
           return priceListsByKey;
         })
@@ -73,7 +74,7 @@ export class PriceListService {
 
         this.priceLists.splice(index, 1, newPriceList.priceList);
         const priceListsByKey = this.orderPriceListBykey(this.priceLists);
-        this.seterrorMsg('');
+        this.setErrorMsg('');
 
         this.priceListsByKey$.next(priceListsByKey);
       });
@@ -83,20 +84,20 @@ export class PriceListService {
     return [...this.priceLists];
   }
 
-  getErrorMsg(): Observable<string> {
-    return this.errorMsg$;
-  }
+ 
 
   getPriceListToEdit(id: number): PriceListModel {
     return this.priceLists.find((priceList) => priceList.priceListID === id)!;
   }
 
   orderPriceListBykey(priceLists: PriceListModel[]): PriceListsByKey {
+    
     let priceListsByKey: PriceListsByKey = {
       priceListName: [],
       extErpPriceListID: [],
       priceListID: [],
     };
+
     priceListsByKey = priceLists.reduce((pre, cur) => {
       pre.priceListName.push(cur.priceListName);
       pre.extErpPriceListID.push(cur.extErpPriceListID || null || undefined);
@@ -106,10 +107,10 @@ export class PriceListService {
     return priceListsByKey;
   }
   
-  geterrorMsg(): Observable<string> {
+  getErrorMsg(): Observable<string> {
     return this.errorMsg$.asObservable();
   }
-  seterrorMsg(value: string) {
+  setErrorMsg(value: string) {
     this.errorMsg$.next(value.toString());
   }
 }
